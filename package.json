@@ -13,7 +13,7 @@
     "element-plus": "^2.1.8",
     "less": "^4.1.2",
     "lodash-es": "^4.17.21",
-    "pdf-document-viewer": "0.3.11",
+    "pdf-document-viewer": "0.3.20",
     "vue": "^3.2.25"
   },
   "devDependencies": {

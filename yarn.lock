@@ -24,7 +24,7 @@
   dependencies:
     "@floating-ui/core" "^0.6.1"
 
-"@popperjs/core@^2.11.4":
+"@popperjs/core@^2.11.4", "@popperjs/core@^2.9.0":
   version "2.11.5"
   resolved "http://bohr.cheftin.cn:4873/@popperjs%2fcore/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
 
@@ -399,15 +399,18 @@ path-parse@^1.0.7:
   version "1.0.7"
   resolved "http://bohr.cheftin.cn:4873/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
 
-pdf-document-viewer@0.3.11:
-  version "0.3.11"
-  resolved "http://bohr.cheftin.cn:4873/pdf-document-viewer/-/pdf-document-viewer-0.3.11.tgz#7bea66996cb77840b500733e1e3dc26399166ae3"
+pdf-document-viewer@0.3.20:
+  version "0.3.20"
+  resolved "http://bohr.cheftin.cn:4873/pdf-document-viewer/-/pdf-document-viewer-0.3.20.tgz#496cc61611fe5a9bc2095ad7ea7b193db6f90ec1"
   dependencies:
+    codemirror "^5.65.2"
+    lodash-es "^4.17.21"
     nanoid "^3.1.30"
-    pdfium-lib-wasm "^1.0.29"
+    pdfium-lib-wasm "^1.1.4"
     pdfjs "^2.12.314-alpha.55"
+    tippy.js "^6.3.7"
 
-pdfium-lib-wasm@^1.0.29:
+pdfium-lib-wasm@^1.1.4:
   version "1.1.10"
   resolved "http://bohr.cheftin.cn:4873/pdfium-lib-wasm/-/pdfium-lib-wasm-1.1.10.tgz#4e582ff82141c7d7d081befa9e451cc35c2ccf39"
 
@@ -476,6 +479,12 @@ sourcemap-codec@^1.4.8:
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "http://bohr.cheftin.cn:4873/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
+
+tippy.js@^6.3.7:
+  version "6.3.7"
+  resolved "http://bohr.cheftin.cn:4873/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
+  dependencies:
+    "@popperjs/core" "^2.9.0"
 
 tslib@^2.3.0:
   version "2.3.1"
