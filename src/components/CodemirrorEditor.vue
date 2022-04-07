@@ -38,7 +38,8 @@ onMounted(() => {
     lineWrapping: true,
     foldGutter: true,
     gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-    ...props.options
+    ...props.options,
+    value: props.content,
   });
   jsonEditor.on('change', context => {
     emits('change',context.getValue());
@@ -52,7 +53,7 @@ watch(() => props.content, () => {
   immdiate: true,
 })
 
-expose({
+defineExpose({
   getJsonEditor: () => jsonEditor
 })
 </script>

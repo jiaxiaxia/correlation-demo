@@ -7,13 +7,35 @@
       width="80%"
       popper-class="pop-wrapper"
       v-model:visible="editorVisible"
+      @show="handleShow"
     >
       <template #reference>
-        <el-button @click="handleEditor">编辑json</el-button>
+        <div>
+          <!-- <el-popconfirm
+            title="确定要放弃本次修改吗？"
+            confirmButtonText="确定"
+            cancelButtonText="取消"
+            v-model:visible="confirmVisible"
+            @confirm="hiddenEditor"
+            @cancel="confirmCancel"
+          >
+            <template #reference>
+              <el-button
+                style="border: none; background-color: transparent; padding: 0;"
+                @click="handleCancelEdit"
+              >
+                <el-icon v-if="editorVisible" size="18px">
+                  <back size="36px" />
+                </el-icon>
+              </el-button>
+            </template>
+          </el-popconfirm> -->
+          <el-button @click="handleEditor">编辑json</el-button>
+        </div>
       </template>
       <el-row class="editor-wrapper">
         <el-col class="menu-col">
-          <el-menu @select="onMenuSelected">
+          <el-menu @select="onMenuSelected" default-active="autodoc.js">
             <el-sub-menu index="base">
               <template #title>
                 <span>基础样式</span>
@@ -36,26 +58,39 @@
     </el-popover>
     <div class="run-btn" v-if="editorVisible">
       <el-button @click="handleRun">运行</el-button>
-      <el-button @click="handleCancelEdit">取消</el-button>
+      <el-popconfirm
+        title="确定要放弃本次修改吗？"
+        confirmButtonText="确定"
+        cancelButtonText="取消"
+        v-model:visible="confirmVisible"
+        @confirm="hiddenEditor"
+        @cancel="confirmCancel"
+      >
+        <template #reference>
+          <el-button @click="handleCancelEdit">取消</el-button>
+        </template>
+      </el-popconfirm>
     </div>
   </div>
   <PdfSdk :config="pdfConfig" style="height: calc(100% - 35px)"></PdfSdk>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import PdfSdk from './components/PdfSdk.vue'
 import sdkJson from './jsons/autodoc.js';
 import CodemirrorEditor from './components/CodemirrorEditor.vue';
 import { customEval } from './utils';
+import { Back } from '@element-plus/icons-vue';
 const jsonRef = ref(null);
-const jsonContent = ref('');
+const jsonContent = ref(JSON.stringify(sdkJson, replacer, 2));
 const jsonEditor = ref(null);
 const editorVisible = ref(false);
 const pdfConfig = ref(sdkJson);
-const isJsonChanged = ref(false);
-onMounted(() => {
-
+const changedValue = ref('');
+const jsonIsChanged = computed(() => {
+  return jsonContent.value !== changedValue.value;
 })
+const confirmVisible = ref(false);
 function replacer(key, value) {
   // Filtering out properties
   if (typeof value === 'function') {
@@ -73,12 +108,19 @@ function handleEditor() {
   }
 }
 function handleCancelEdit() {
-  if (isJsonChanged.value) {
-
+  if (!jsonIsChanged.value) {
+    hiddenEditor();
   } else {
-    editorVisible.value = false;
+    confirmVisible.value = true
   }
 
+}
+function hiddenEditor() {
+  editorVisible.value = false;
+  confirmVisible.value = false
+}
+function confirmCancel() {
+  confirmVisible.value = false
 }
 
 function handleRun() {
@@ -87,12 +129,17 @@ function handleRun() {
   json.documents.forEach(document => {
     document.loadDataByPage = customEval(document.loadDataByPage);
   });
-  console.log(json, json);
   pdfConfig.value = json;
   editorVisible.value = false;
+  jsonContent.value = changedValue.value
 }
 function handleJsonChange(value) {
-  isJsonChanged.value = jsonContent.value === value;
+  console.log('change');
+  changedValue.value = value;
+}
+function handleShow() {
+  const editor = jsonEditor.value.getJsonEditor();
+  editor.setValue(jsonContent.value)
 }
 </script>
 <style scoped lang="less">

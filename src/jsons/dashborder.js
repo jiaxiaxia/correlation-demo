@@ -1,7 +1,7 @@
 export default {
   "documents": [
     {
-      "url": "./132.pdf",
+      "url": "../documents/132.pdf",
       "isMain": true,
       "id": 1,
       "registWidgets": [
@@ -17,7 +17,7 @@ export default {
       ]
     },
     {
-      "url": "./132.pdf",
+      "url": "../documents/132.pdf",
       "isMain": false,
       "id": 2,
       "registWidgets": [
