@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="header">
     <el-popover
@@ -98,7 +96,7 @@ import sdkJson from './jsons/autodoc.js';
 import codeString from './sdkCode';
 import CodemirrorEditor from './components/CodemirrorEditor.vue';
 import { customEval, parseStringToJson, replacer } from './utils';
-import { ack } from '@element-plus/icons-vue';
+import { Back } from '@element-plus/icons-vue';
 import { useJsonEditor } from './hooks/useJsonEditor';
 import { useCodeEditor } from './hooks/useCodeEditor';
 const { jsonContent, jsonEditor, changedValue, jsonIsChanged, handleJsonChange } = useJsonEditor(sdkJson)

@@ -1,5 +1,5 @@
-import dedent from "dedent";
-export default dedent(`
+
+export default `
 import PDFiumWorkSrc from "pdf-document-viewer/PDFiumWork?url";
 import viewer from "pdf-document-viewer";
 import "pdf-document-viewer/style.css";
@@ -8,4 +8,4 @@ export function initSDK(rootDom, config) {
   container = new PdfViewerContainer(config.documents, config.lineConfig, { PDFiumWorkSrc: PDFiumWorkSrc });
   container.render(rootDom);
 }
-`)
+`

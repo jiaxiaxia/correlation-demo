@@ -130,43 +130,13 @@
   dependencies:
     vue-demi "*"
 
-abbrev@1:
-  version "1.1.1"
-  resolved "http://bohr.cheftin.cn:4873/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
-
 async-validator@^4.0.7:
   version "4.0.7"
   resolved "http://bohr.cheftin.cn:4873/async-validator/-/async-validator-4.0.7.tgz#034a0fd2103a6b2ebf010da75183bec299247afe"
 
-balanced-match@^1.0.0:
-  version "1.0.2"
-  resolved "http://bohr.cheftin.cn:4873/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
-
-brace-expansion@^1.1.7:
-  version "1.1.11"
-  resolved "http://bohr.cheftin.cn:4873/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
-  dependencies:
-    balanced-match "^1.0.0"
-    concat-map "0.0.1"
-
 codemirror@^5.65.2:
   version "5.65.2"
   resolved "http://bohr.cheftin.cn:4873/codemirror/-/codemirror-5.65.2.tgz#5799a70cb3d706e10f60e267245e3a75205d3dd9"
-
-commander@^2.19.0:
-  version "2.20.3"
-  resolved "http://bohr.cheftin.cn:4873/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
-
-concat-map@0.0.1:
-  version "0.0.1"
-  resolved "http://bohr.cheftin.cn:4873/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
-
-config-chain@^1.1.12:
-  version "1.1.13"
-  resolved "http://bohr.cheftin.cn:4873/config-chain/-/config-chain-1.1.13.tgz#fad0795aa6a6cdaff9ed1b68e9dff94372c232f4"
-  dependencies:
-    ini "^1.3.4"
-    proto-list "~1.2.1"
 
 copy-anything@^2.0.1:
   version "2.0.6"
@@ -187,19 +157,6 @@ debug@^3.2.6:
   resolved "http://bohr.cheftin.cn:4873/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
   dependencies:
     ms "^2.1.1"
-
-dedent@^0.7.0:
-  version "0.7.0"
-  resolved "http://bohr.cheftin.cn:4873/dedent/-/dedent-0.7.0.tgz#2495ddbaf6eb874abb0e1be9df22d2e5a544326c"
-
-editorconfig@^0.15.3:
-  version "0.15.3"
-  resolved "http://bohr.cheftin.cn:4873/editorconfig/-/editorconfig-0.15.3.tgz#bef84c4e75fb8dcb0ce5cee8efd51c15999befc5"
-  dependencies:
-    commander "^2.19.0"
-    lru-cache "^4.1.5"
-    semver "^5.6.0"
-    sigmund "^1.0.1"
 
 element-plus@^2.1.8:
   version "2.1.8"
@@ -323,10 +280,6 @@ estree-walker@^2.0.2:
   version "2.0.2"
   resolved "http://bohr.cheftin.cn:4873/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
 
-fs.realpath@^1.0.0:
-  version "1.0.0"
-  resolved "http://bohr.cheftin.cn:4873/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
-
 fsevents@~2.3.2:
   version "2.3.2"
   resolved "http://bohr.cheftin.cn:4873/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
@@ -334,17 +287,6 @@ fsevents@~2.3.2:
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "http://bohr.cheftin.cn:4873/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
-
-glob@^7.1.3:
-  version "7.2.0"
-  resolved "http://bohr.cheftin.cn:4873/glob/-/glob-7.2.0.tgz#d15535af7732e02e948f4c41628bd910293f6023"
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.4"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
 
 graceful-fs@^4.1.2:
   version "4.2.10"
@@ -366,21 +308,6 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "http://bohr.cheftin.cn:4873/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
-inflight@^1.0.4:
-  version "1.0.6"
-  resolved "http://bohr.cheftin.cn:4873/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
-  dependencies:
-    once "^1.3.0"
-    wrappy "1"
-
-inherits@2:
-  version "2.0.4"
-  resolved "http://bohr.cheftin.cn:4873/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
-
-ini@^1.3.4:
-  version "1.3.8"
-  resolved "http://bohr.cheftin.cn:4873/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
-
 is-core-module@^2.8.1:
   version "2.8.1"
   resolved "http://bohr.cheftin.cn:4873/is-core-module/-/is-core-module-2.8.1.tgz#f59fdfca701d5879d0a6b100a40aa1560ce27211"
@@ -390,15 +317,6 @@ is-core-module@^2.8.1:
 is-what@^3.14.1:
   version "3.14.1"
   resolved "http://bohr.cheftin.cn:4873/is-what/-/is-what-3.14.1.tgz#e1222f46ddda85dead0fd1c9df131760e77755c1"
-
-js-beautify@^1.14.2:
-  version "1.14.2"
-  resolved "http://bohr.cheftin.cn:4873/js-beautify/-/js-beautify-1.14.2.tgz#8180514fd4c7789c4ac4bcc327b6dda634c55666"
-  dependencies:
-    config-chain "^1.1.12"
-    editorconfig "^0.15.3"
-    glob "^7.1.3"
-    nopt "^5.0.0"
 
 less@^4.1.2:
   version "4.1.2"
@@ -428,13 +346,6 @@ lodash@^4.17.21:
   version "4.17.21"
   resolved "http://bohr.cheftin.cn:4873/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
 
-lru-cache@^4.1.5:
-  version "4.1.5"
-  resolved "http://bohr.cheftin.cn:4873/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
-  dependencies:
-    pseudomap "^1.0.2"
-    yallist "^2.1.2"
-
 magic-string@^0.25.7:
   version "0.25.9"
   resolved "http://bohr.cheftin.cn:4873/magic-string/-/magic-string-0.25.9.tgz#de7f9faf91ef8a1c91d02c2e5314c8277dbcdd1c"
@@ -456,12 +367,6 @@ mime@^1.4.1:
   version "1.6.0"
   resolved "http://bohr.cheftin.cn:4873/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
-minimatch@^3.0.4:
-  version "3.1.2"
-  resolved "http://bohr.cheftin.cn:4873/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
-  dependencies:
-    brace-expansion "^1.1.7"
-
 ms@^2.1.1:
   version "2.1.3"
   resolved "http://bohr.cheftin.cn:4873/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
@@ -478,29 +383,13 @@ needle@^2.5.2:
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
-nopt@^5.0.0:
-  version "5.0.0"
-  resolved "http://bohr.cheftin.cn:4873/nopt/-/nopt-5.0.0.tgz#530942bb58a512fccafe53fe210f13a25355dc88"
-  dependencies:
-    abbrev "1"
-
 normalize-wheel-es@^1.1.2:
   version "1.1.2"
   resolved "http://bohr.cheftin.cn:4873/normalize-wheel-es/-/normalize-wheel-es-1.1.2.tgz#285e43676a62d687bf145e33452ea6be435162d0"
 
-once@^1.3.0:
-  version "1.4.0"
-  resolved "http://bohr.cheftin.cn:4873/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
-  dependencies:
-    wrappy "1"
-
 parse-node-version@^1.0.1:
   version "1.0.1"
   resolved "http://bohr.cheftin.cn:4873/parse-node-version/-/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"
-
-path-is-absolute@^1.0.0:
-  version "1.0.1"
-  resolved "http://bohr.cheftin.cn:4873/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
 path-parse@^1.0.7:
   version "1.0.7"
@@ -541,17 +430,9 @@ postcss@^8.1.10, postcss@^8.3.8:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-proto-list@~1.2.1:
-  version "1.2.4"
-  resolved "http://bohr.cheftin.cn:4873/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
-
 prr@~1.0.1:
   version "1.0.1"
   resolved "http://bohr.cheftin.cn:4873/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
-
-pseudomap@^1.0.2:
-  version "1.0.2"
-  resolved "http://bohr.cheftin.cn:4873/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
 resolve@^1.20.0:
   version "1.22.0"
@@ -578,10 +459,6 @@ sax@^1.2.4:
 semver@^5.6.0:
   version "5.7.1"
   resolved "http://bohr.cheftin.cn:4873/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
-
-sigmund@^1.0.1:
-  version "1.0.1"
-  resolved "http://bohr.cheftin.cn:4873/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
 
 source-map-js@^1.0.2:
   version "1.0.2"
@@ -633,11 +510,3 @@ vue@^3.2.25:
     "@vue/runtime-dom" "3.2.31"
     "@vue/server-renderer" "3.2.31"
     "@vue/shared" "3.2.31"
-
-wrappy@1:
-  version "1.0.2"
-  resolved "http://bohr.cheftin.cn:4873/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
-
-yallist@^2.1.2:
-  version "2.1.2"
-  resolved "http://bohr.cheftin.cn:4873/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"

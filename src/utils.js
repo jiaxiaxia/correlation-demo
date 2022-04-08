@@ -1,5 +1,4 @@
-import js_beautify from 'js-beautify';
-import dedent from 'dedent';
+
 export const customEval = fn => {
   const Fun = Function;
   return new Fun(`return ${fn}`)();
@@ -14,7 +13,7 @@ export const parseStringToJson = (string) => {
 export function replacer(key, value) {
   // Filtering out properties
   if (typeof value === 'function') {
-    return dedent(js_beautify(value.toString()));
+    return value.toString();
   }
   return value;
 }
