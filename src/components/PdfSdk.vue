@@ -13,6 +13,10 @@ const props = defineProps({
   config: {
     type: Object,
     required: true,
+  },
+  initContainer: {
+    type: Function,
+    required: true,
   }
 })
 const sdk = ref(null);
@@ -20,6 +24,9 @@ let container = null;
 onMounted(() => {
   container = new PdfViewerContainer(props.config.documents, props.config.lineConfig, { PDFiumWorkSrc: PDFiumWorkSrc });
   container.render(sdk.value);
+  if (props.config.correlations) {
+    container.initLabelData(props.config.correlations)
+  }
 })
 watch(() => props.config, () => {
   if (container) {

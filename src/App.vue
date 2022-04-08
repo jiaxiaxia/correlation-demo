@@ -29,7 +29,7 @@
                 </el-icon>
               </el-button>
             </template>
-          </el-popconfirm> -->
+          </el-popconfirm>-->
           <el-button @click="handleEditor">编辑json</el-button>
         </div>
       </template>
@@ -51,8 +51,25 @@
             </el-sub-menu>
           </el-menu>
         </el-col>
-        <el-col class="json-editor-wrapper">
+        <el-col class="editor-wrapper">
           <codemirror-editor ref="jsonEditor" :content="jsonContent" @change="handleJsonChange"></codemirror-editor>
+        </el-col>
+        <el-col class="editor-wrapper">
+          <codemirror-editor
+            ref="codeEditor"
+            :content="codeContent"
+            :options="{
+              matchBrackets: true,
+              autoCloseBrackets: true,
+              lineNumbers: false,
+              lineWrapping: false,
+              foldGutter: false,
+              gutters: [],
+              continueComments: 'Enter', extraKeys: { 'Ctrl-Q': 'toggleComment' },
+              mode: 'application/javascript'
+            }"
+            @change="handleCodeChange"
+          ></codemirror-editor>
         </el-col>
       </el-row>
     </el-popover>
@@ -78,30 +95,23 @@
 import { onMounted, ref, computed } from 'vue';
 import PdfSdk from './components/PdfSdk.vue'
 import sdkJson from './jsons/autodoc.js';
+import codeString from './sdkCode';
 import CodemirrorEditor from './components/CodemirrorEditor.vue';
-import { customEval } from './utils';
-import { Back } from '@element-plus/icons-vue';
-const jsonRef = ref(null);
-const jsonContent = ref(JSON.stringify(sdkJson, replacer, 2));
-const jsonEditor = ref(null);
+import { customEval, parseStringToJson, replacer } from './utils';
+import { ack } from '@element-plus/icons-vue';
+import { useJsonEditor } from './hooks/useJsonEditor';
+import { useCodeEditor } from './hooks/useCodeEditor';
+const { jsonContent, jsonEditor, changedValue, jsonIsChanged, handleJsonChange } = useJsonEditor(sdkJson)
+const { codeContent, codeEditor, changedCodeValue, codeIsChanged, handleCodeChange } = useCodeEditor(codeString)
 const editorVisible = ref(false);
 const pdfConfig = ref(sdkJson);
-const changedValue = ref('');
-const jsonIsChanged = computed(() => {
-  return jsonContent.value !== changedValue.value;
-})
 const confirmVisible = ref(false);
-function replacer(key, value) {
-  // Filtering out properties
-  if (typeof value === 'function') {
-    return value.toString();
-  }
-  return value;
-}
+
 async function onMenuSelected(index) {
   const json = await import(/* @vite-ignore */`./jsons/${index}`);
-  jsonContent.value = JSON.stringify(json.default, replacer, 2)
+  jsonContent.value = json.default
 }
+
 function handleEditor() {
   if (!editorVisible.value) {
     editorVisible.value = true;
@@ -125,21 +135,17 @@ function confirmCancel() {
 
 function handleRun() {
   const editor = jsonEditor.value.getJsonEditor();
-  const json = JSON.parse(editor.getValue());
-  json.documents.forEach(document => {
-    document.loadDataByPage = customEval(document.loadDataByPage);
-  });
+  const json = parseStringToJson(editor.getValue());
   pdfConfig.value = json;
   editorVisible.value = false;
   jsonContent.value = changedValue.value
 }
-function handleJsonChange(value) {
-  console.log('change');
-  changedValue.value = value;
-}
+
 function handleShow() {
   const editor = jsonEditor.value.getJsonEditor();
-  editor.setValue(jsonContent.value)
+  editor.setValue(jsonContent.value);
+  const codeEd = codeEditor.value.getJsonEditor();
+  codeEd.setValue(codeContent.value);
 }
 </script>
 <style scoped lang="less">
@@ -163,7 +169,7 @@ function handleShow() {
   .editor-wrapper {
     height: 100%;
     overflow: hidden;
-    .json-editor-wrapper {
+    .editor-wrapper {
       height: 100%;
       overflow-y: auto;
       flex: 1;
