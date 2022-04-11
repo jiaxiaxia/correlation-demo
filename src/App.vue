@@ -87,11 +87,16 @@
       </el-popconfirm>
     </div>
   </div>
-  <PdfSdk :config="pdfConfig" style="height: calc(100% - 35px)"></PdfSdk>
+  <PdfSdk :config="pdfConfig" :quadrupleContainer="quadrupleContainer" :currentMark="currentMark" @sendMarkList="getMarkList" style="height: calc(100% - 35px)"></PdfSdk>
+  <template>
+    <RightTopQuadruple @quadrupleDom="onQuadrupleDom" @currentMarkIndex="onCurrentMarkIndex" :originMarksList="originMarksList"></RightTopQuadruple>
+  </template>
 </template>
+
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import PdfSdk from './components/PdfSdk.vue'
+import PdfSdk from './components/PdfSdk.vue';
+import RightTopQuadruple from './components/RightTopQuadruple.vue';
 import sdkJson from './jsons/autodoc.js';
 import codeString from './sdkCode';
 import CodemirrorEditor from './components/CodemirrorEditor.vue';
@@ -104,12 +109,30 @@ const { codeContent, codeEditor, changedCodeValue, codeIsChanged, handleCodeChan
 const editorVisible = ref(false);
 const pdfConfig = ref(sdkJson);
 const confirmVisible = ref(false);
+const quadrupleContainer = ref({});
+const markList = ref([]);
+const currentMark = ref({});
+const originMarksList = ref([]);
+function getMarkList(marks){
+  originMarksList.value = marks
+}
 
+function onQuadrupleDom(rightTopDom, tabDom){
+  quadrupleContainer.value = {
+    rightTopDom,
+    tabDom
+  }
+}
+function onCurrentMarkIndex(index){
+  currentMark.value = originMarksList.value[index];
+}
 async function onMenuSelected(index) {
   const json = await import(/* @vite-ignore */`./jsons/${index}`);
   jsonContent.value = json.default
+  if(!index.includes('autodoc')){
+    quadrupleContainer.value = {};
+  }
 }
-
 function handleEditor() {
   if (!editorVisible.value) {
     editorVisible.value = true;
