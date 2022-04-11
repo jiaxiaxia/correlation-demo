@@ -31,9 +31,9 @@ const sdk = ref(null);
 let container = null;
 const emits = defineEmits(["sendMarkList"]);
 onMounted(() => {
-  initContainer();
+  initSdkContainer();
 })
-function initContainer(){
+function initSdkContainer(){
   if (container) {
     container.destroy();
   }
@@ -80,12 +80,12 @@ function setContainerSlot(){
   if(props.quadrupleContainer.tabDom){
     container.tabSlot.appendChild(props.quadrupleContainer.tabDom);
   }
+  container.enableSplit = true;
 }
 watch(() => props.config, () => {
-  initContainer();
+  initSdkContainer();
   if(props.config.slotConfig?.includes('right-top')){
     setContainerSlot();
-    container.enableSplit = true;
   }
 })
 watch(() => props.quadrupleContainer, () => {
