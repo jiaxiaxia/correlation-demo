@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // import './assets/theme.css'
-import App from './App.vue'
+import App from './App2.vue'
 
 // async function login() {
 //   return fetch('/autodoc/api/v1/user/login', {

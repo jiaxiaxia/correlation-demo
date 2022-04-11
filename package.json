@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vue/repl": "^1.0.0",
     "codemirror": "^5.65.2",
     "element-plus": "^2.1.8",
     "less": "^4.1.2",
