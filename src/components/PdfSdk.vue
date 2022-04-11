@@ -71,10 +71,7 @@ function widgetClick(eventData){
       container.rightTopSlot.innerHTML = '';
     }
 }
-watch(() => props.config, () => {
-  initContainer();
-})
-watch(() => props.quadrupleContainer, () => {
+function setContainerSlot(){
   container.rightTopSlot.innerHTML = ''
   container.tabSlot.innerHTML = ''
   if(props.quadrupleContainer.rightTopDom){
@@ -83,6 +80,16 @@ watch(() => props.quadrupleContainer, () => {
   if(props.quadrupleContainer.tabDom){
     container.tabSlot.appendChild(props.quadrupleContainer.tabDom);
   }
+}
+watch(() => props.config, () => {
+  initContainer();
+  if(props.config.slotConfig?.includes('right-top')){
+    setContainerSlot();
+    container.enableSplit = true;
+  }
+})
+watch(() => props.quadrupleContainer, () => {
+  setContainerSlot();
 })
 watch(() => props.currentMark, () => {
   container.drawRightWidgetAndLine(props.currentMark);

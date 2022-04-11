@@ -34,18 +34,13 @@
       <el-row class="editor-wrapper">
         <el-col class="menu-col">
           <el-menu @select="onMenuSelected" default-active="autodoc.js">
-            <el-sub-menu index="base">
+            <el-sub-menu v-for="subMenu in menuData" :key="subMenu.index" :index="subMenu.index">
               <template #title>
-                <span>基础样式</span>
+                <span>{{ subMenu.title }}</span>
               </template>
-              <el-menu-item index="dashborder.js">虚线框</el-menu-item>
-              <el-menu-item index="solidborder.js">实线框</el-menu-item>
-            </el-sub-menu>
-            <el-sub-menu index="autoDoc">
-              <template #title>
-                <span>AutoDoc</span>
-              </template>
-              <el-menu-item index="autodoc.js">勾稽关系</el-menu-item>
+              <el-menu-item v-for="menuItem in subMenu.children" :key="menuItem.index" :index="menuItem.index">
+                {{ menuItem.title }}
+              </el-menu-item>
             </el-sub-menu>
           </el-menu>
         </el-col>
@@ -88,9 +83,7 @@
     </div>
   </div>
   <PdfSdk :config="pdfConfig" :quadrupleContainer="quadrupleContainer" :currentMark="currentMark" @sendMarkList="getMarkList" style="height: calc(100% - 35px)"></PdfSdk>
-  <template>
-    <RightTopQuadruple @quadrupleDom="onQuadrupleDom" @currentMarkIndex="onCurrentMarkIndex" :originMarksList="originMarksList"></RightTopQuadruple>
-  </template>
+  <RightTopQuadruple @quadrupleDom="onQuadrupleDom" @currentMarkIndex="onCurrentMarkIndex" :originMarksList="originMarksList"></RightTopQuadruple>
 </template>
 
 <script setup>
@@ -104,6 +97,29 @@ import { customEval, parseStringToJson, replacer } from './utils';
 import { Back } from '@element-plus/icons-vue';
 import { useJsonEditor } from './hooks/useJsonEditor';
 import { useCodeEditor } from './hooks/useCodeEditor';
+const menuData = [
+  {
+    index:'base',
+    title:'基础样式',
+    children:[{
+      index:'dashborder.js',
+      title:'虚线框'
+    },
+    {
+      index:'solidborder.js',
+      title:'实线框',
+    }]
+  },
+  {
+    index:'autodoc',
+    title:'AutoDoc',
+    children:[{
+      index:'autodoc.js',
+      title:'勾稽关系',
+      slots:['right-top'],
+    }]
+  }
+]
 const { jsonContent, jsonEditor, changedValue, jsonIsChanged, handleJsonChange } = useJsonEditor(sdkJson)
 const { codeContent, codeEditor, changedCodeValue, codeIsChanged, handleCodeChange } = useCodeEditor(codeString)
 const editorVisible = ref(false);
@@ -113,6 +129,7 @@ const quadrupleContainer = ref({});
 const markList = ref([]);
 const currentMark = ref({});
 const originMarksList = ref([]);
+const currentMenuIndex = ref('autodoc.js');
 function getMarkList(marks){
   originMarksList.value = marks
 }
@@ -128,10 +145,8 @@ function onCurrentMarkIndex(index){
 }
 async function onMenuSelected(index) {
   const json = await import(/* @vite-ignore */`./jsons/${index}`);
-  jsonContent.value = json.default
-  if(!index.includes('autodoc')){
-    quadrupleContainer.value = {};
-  }
+  jsonContent.value = json.default;
+  currentMenuIndex.value = index;
 }
 function handleEditor() {
   if (!editorVisible.value) {
@@ -157,9 +172,17 @@ function confirmCancel() {
 function handleRun() {
   const editor = jsonEditor.value.getJsonEditor();
   const json = parseStringToJson(editor.getValue());
-  pdfConfig.value = json;
   editorVisible.value = false;
-  jsonContent.value = changedValue.value
+  jsonContent.value = changedValue.value;
+  const menuItem = [];
+  menuData.forEach(item=>{
+    menuItem.push(...item.children)
+  })
+  const slotConfig = menuItem.find(item=>item.index === currentMenuIndex.value)?.slots;
+  json.slotConfig = slotConfig
+  originMarksList.value = [];
+
+  pdfConfig.value = json;
 }
 
 function handleShow() {

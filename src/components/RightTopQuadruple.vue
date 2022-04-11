@@ -1,40 +1,45 @@
 <template>
   <template>
     <div class="correlation-container-wrapper" ref="rightTopRef">
-      <div class="quadruple-header-wrapper">
-        <div class="quadruple-header" v-if="markList[0]">
-          <div class="document-number main">主</div>
-          <span class="date">{{ markList[0].time }}</span>
-          <div class="preattributes" v-if="markList[0].preattributes">
-            <span>{{ preAttributesText }}</span>
+      <div v-if="markList.length > 0">
+        <div class="quadruple-header-wrapper">
+          <div class="quadruple-header" v-if="markList[0]">
+            <div class="document-number main">主</div>
+            <span class="date">{{ markList[0].time }}</span>
+            <div class="preattributes" v-if="markList[0].preattributes">
+              <span>{{ preAttributesText }}</span>
+            </div>
+            <div class="attributes" v-if="markList[0].attributes">
+              <span>{{ attributesText }}</span>
+            </div>
           </div>
-          <div class="attributes" v-if="markList[0].attributes">
-            <span>{{ attributesText }}</span>
+        </div>
+        <div class="quadruple-correlation-list" ref="correlationListRef">
+          <div
+            class="quadruple-block"
+            v-for="(item, index) in markList"
+            :key="item.id"
+            :class="[item.type, activeIndex === index ? 'active' : '']"
+            @click="changeQuadrupleItem(index)"
+          >
+            <div class="title">{{ index + 1 }}</div>
+            <div
+              :class="
+                item.serialNo === '主'
+                  ? 'document-number main'
+                  : 'document-number'
+              "
+            >
+              {{ item.serialNo }}
+            </div>
+            <span class="date">{{ item.time }}</span>
+            <span class="page">{{ item.filePageNode }}</span>
+            <span class="value">{{ item.value }}</span>
           </div>
         </div>
       </div>
-      <div class="quadruple-correlation-list" ref="correlationListRef">
-        <div
-          class="quadruple-block"
-          v-for="(item, index) in markList"
-          :key="item.id"
-          :class="[item.type, activeIndex === index ? 'active' : '']"
-          @click="changeQuadrupleItem(index)"
-        >
-          <div class="title">{{ index + 1 }}</div>
-          <div
-            :class="
-              item.serialNo === '主'
-                ? 'document-number main'
-                : 'document-number'
-            "
-          >
-            {{ item.serialNo }}
-          </div>
-          <span class="date">{{ item.time }}</span>
-          <span class="page">{{ item.filePageNode }}</span>
-          <span class="value">{{ item.value }}</span>
-        </div>
+      <div v-else class="default-container">
+        <span>信息展示区</span>
       </div>
     </div>
   </template>
@@ -73,7 +78,53 @@
 </template>
 <script setup>
 import { onMounted, ref, watch, computed } from "vue";
-import { docletsList } from "../constant";
+const docletsList = [
+  {
+    id: 6399,
+    type: "tracking_rating_report",
+    type_name: "跟踪评级报告",
+  },
+  {
+    id: 6400,
+    type: "rating_report",
+    type_name: "信用评级报告",
+  },
+  {
+    id: 6397,
+    type: "legal_opinion",
+    type_name: "法律意见书",
+  },
+  {
+    id: 6396,
+    type: "other_report_3",
+    type_name: "其他3",
+  },
+  {
+    id: 6401,
+    type: "prospectus_summary",
+    type_name: "募集说明书摘要",
+  },
+  {
+    id: 6398,
+    type: "release_announcement",
+    type_name: "发行公告",
+  },
+  {
+    id: 6403,
+    type: "annual_report_1",
+    type_name: "年报/半年报/季报1",
+  },
+  {
+    id: 6402,
+    type: "prospectus",
+    type_name: "募集说明书",
+  },
+  {
+    id: 6404,
+    type: "audit_report_1",
+    type_name: "审计报告1",
+  },
+];
 const props = defineProps({
   originMarksList: {
     type: Object,
@@ -153,7 +204,7 @@ function tabClick(tab) {
   scrollItemIntoView(index);
 }
 function scrollItemIntoView(index) {
-  const element = correlationListRef.value.children[index];
+  const element = correlationListRef.value?.children[index];
   if (element) {
     element.scrollIntoView({
       behavior: "instant",
@@ -182,6 +233,13 @@ watch(
   overflow-y: auto;
   font-size: 12px;
   color: #1f2d3d;
+  .default-container {
+    height: 100%;
+    text-align: center;
+    span {
+      line-height: 150px;
+    }
+  }
   .quadruple-header-wrapper {
     position: sticky;
     top: 0;
