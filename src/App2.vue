@@ -1,7 +1,12 @@
 <template>
-<div v-if="!loading" class="antialiased">
-    <Repl :store="store" :showCompileOutput="true" :sfc-options="sfcOptions" />
-  </div>
+  <el-row v-if="!loading" class="editor-wrapper">
+      <el-col class="menu-col">
+       <DemoMenu> </DemoMenu>
+      </el-col>
+      <el-col class="editor-wrapper">
+        <Repl :store="store" :showCompileOutput="true" :sfc-options="sfcOptions" />    
+      </el-col>
+    </el-row>
   <template v-else>
     <div v-loading="{ text: 'Loading...' }" class="loading" />
   </template>
@@ -13,6 +18,7 @@ import {CustomReplStore} from './store.js';
 import '@vue/repl/style.css'
 import { compileFile, File } from '@vue/repl'
 import autoDocCode from './demos/autodoc';
+import DemoMenu from './components/DemoMenu.vue';
 const loading =ref(false);
 // retrieve some configuration options from the URL
 const query = new URLSearchParams(location.search)
@@ -24,17 +30,7 @@ const sfcOptions = {
   },
 }
 
-const store = new CustomReplStore({
-  // initialize repl with previously serialized state
-  serializedState: location.hash.slice(1),
-
-  // starts on the output pane (mobile only) if the URL has a showOutput query
-  showOutput: query.has('showOutput'),
-  // starts on a different tab on the output pane if the URL has a outputMode query
-  // and default to the "preview" tab
-  outputMode: (query.get('outputMode') || 'preeview')
-
-})
+const store = new CustomReplStore()
 
 store.setFiles({
   "App.vue": autoDocCode,
@@ -52,12 +48,44 @@ watchEffect(() => history.replaceState({}, '', store.serialize()))
 
 </script>
 <style scoped lang="less">
-.antialiased {
-  height: 100%;
-  :deep .vue-repl{
+.editor-wrapper {
+    height: 100%;
+    overflow: hidden;
+    .editor-wrapper {
+      height: 100%;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .menu-col {
+      width: 130px;
+      max-width: 130px;
+      height: 100%;
+      overflow-y: hidden;
+
+      .el-menu {
+        --el-menu-item-height: 40px;
+        height: 100%;
+        overflow: auto;
+        .el-sub-menu__title {
+          padding-left: 10px !important;
+          .el-sub-menu__icon-arrow {
+            right: 10px;
+          }
+        }
+        .el-menu-item {
+          padding-left: 10px !important;
+        }
+        .el-sub-menu {
+          .el-menu-item {
+            padding-left: 20px !important;
+          }
+        }
+      }
+    }
+    :deep .vue-repl{
     height: 100%;
   }
-}
+  }
 .loading {
   height: 100vh;
 }
