@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+!src/pdf-document-viewer/**
 dist-ssr
 *.local
 

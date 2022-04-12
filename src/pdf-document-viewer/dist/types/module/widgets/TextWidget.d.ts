@@ -1,0 +1,46 @@
+import BaseWidget from './BaseWidget';
+import type { OutlineType, PageInfo, TextWidgetConfig } from '../../types/widget';
+import { CtrlMapOnBarType, SubWidgetConfig } from '../../types/widget';
+declare type Pos = {
+    x: number;
+    y: number;
+};
+export default class TextWidget extends BaseWidget {
+    #private;
+    widgetType: string;
+    subType: string;
+    className: string[];
+    widget: SVGGraphicsElement;
+    isResizeEnable: boolean;
+    focusPos: Pos;
+    anchorPos: Pos;
+    focusIndex: number;
+    anchorIndex: number;
+    text: string;
+    isConfirm: boolean;
+    isHighlight: boolean;
+    outlines: OutlineType[];
+    rects: SVGRectElement[];
+    pixelRatio: number;
+    rawImageData: Map<number[], ImageData>;
+    constructor(serializedData: TextWidgetConfig, pageInfo: PageInfo);
+    drawing(x: number, y: number): Promise<void>;
+    drawingEnd(focus?: boolean): Promise<void>;
+    getControlClass(): CtrlMapOnBarType;
+    recover(): void;
+    highlight(): void;
+    confirm(): void;
+    copy(): void;
+    check(): boolean;
+    show(): void;
+    hide(): void;
+    set isAlwaysShow(val: boolean);
+    get isAlwaysShow(): boolean;
+    set isAlwaysShowControlBar(val: boolean);
+    get isAlwaysShowControlBar(): boolean;
+    getOutlines(unit?: 'px' | 'pt'): OutlineType[];
+    toJSON(unit?: 'px' | 'pt'): TextWidgetConfig;
+    destroy(): void;
+}
+export declare function createSubText({ subType, isAlwaysShow, isAlwaysShowControlBar, classNames, locked, autoFocusOnClick, autoFocusOnEnter, dataset, }: SubWidgetConfig): typeof TextWidget;
+export {};
